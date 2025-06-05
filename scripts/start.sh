@@ -31,8 +31,8 @@ EOF
 }
 
 function parse_cmd_args() {
-    args=$(getopt --options n:v: \
-                  --longoptions name:,version:,start-params -- "$@")
+    args=$(getopt --options n:v:i: \
+                  --longoptions name:,version:,image:,start-params -- "$@")
     
     if [[ $? -ne 0 ]]; then
         echo "Failed to parse arguments!" && usage

@@ -66,7 +66,11 @@ function get_image_names_by_image_id () {
 }
 
 function get_containers_by_image_id () {
-    $(detect_container_engine) container ls -a --filter "ancestor=$1" -q
+    if [ "$(detect_container_engine)" == "podman" ] ; then
+        $(detect_container_engine) container ls -a --format "{{.ID}} {{.ImageID}}" | grep "$1" | awk '{print $1}'
+    else
+        $(detect_container_engine) container ls -a --filter "ancestor=$1" -q
+    fi
 }
 
 function does_container_exist() {
